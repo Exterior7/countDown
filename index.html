@@ -23,13 +23,14 @@
           var hours = Math.floor((countDownTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           var minutes = Math.floor((countDownTime % (1000 * 60 * 60)) / (1000 * 60));
           var seconds = Math.floor((countDownTime % (1000 * 60)) / 1000);
-        
-          document.getElementById("timer").innerHTML = 
+          var timerElement =  document.getElementById("timer");
+          
+          timerElement.innerHTML = 
             `${days} nap ${hours < 10 ? "0":""}${hours}:${minutes < 10 ? "0":""}${minutes}:${seconds < 10 ? "0":""}${seconds}`;
 
           if (countDownTime < 0) {
             clearInterval(countDownInterval);
-            document.getElementById("timer").innerHTML = "A jelentkezési határidő lejárt!";
+            timerElement.innerHTML = "A jelentkezési határidő lejárt!";
           }
         }
         var countDownInterval = setInterval(countDown, 1000);
