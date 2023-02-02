@@ -13,27 +13,31 @@
     <div id="timer"></div>
 
     <script>
-        var countDownTime = new Date("2023-02-15T23:59:59").getTime() - new Date().getTime();
-        
-      
-        function countDown() {
-          countDownTime -= 1000;
-        
-          var days = Math.floor(countDownTime / (1000 * 60 * 60 * 24));
-          var hours = Math.floor((countDownTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          var minutes = Math.floor((countDownTime % (1000 * 60 * 60)) / (1000 * 60));
-          var seconds = Math.floor((countDownTime % (1000 * 60)) / 1000);
-          var timerElement =  document.getElementById("timer");
-          
-          timerElement.innerHTML = 
-            `${days} nap ${hours < 10 ? "0":""}${hours}:${minutes < 10 ? "0":""}${minutes}:${seconds < 10 ? "0":""}${seconds}`;
+      const countDownDate = new Date("2023-02-15T23:59:59").getTime();
 
-          if (countDownTime < 0) {
-            clearInterval(countDownInterval);
-            timerElement.innerHTML = "A jelentkezési határidő lejárt!";
-          }
-        }
-        var countDownInterval = setInterval(countDown, 1000);
+let days;
+let hours;
+let minutes;
+let seconds;
+
+function Countdown() {
+  const now = new Date().getTime();
+  const distance = countDownDate - now;
+
+  days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("timer").innerHTML = `${days < 1 ? "" : days + 'nap'} ${hours < 10 ? "0":""}${hours}:${minutes < 10 ? "0":""}${minutes}:${seconds < 10 ? "0":""}${seconds}`;
+
+  if (distance < 0) {
+    clearInterval(countdownInterval);
+    document.getElementById("timer").innerHTML = "Lejárt";
+  }
+}
+
+const countdownInterval = setInterval(Countdown, 1000);
         </script>
 </body>
 </html>
